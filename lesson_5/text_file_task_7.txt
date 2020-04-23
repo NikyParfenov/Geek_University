@@ -1,0 +1,5 @@
+Name, Ownership, Revenue, Expenditures
+Horns_and_hoofs IE 10000 500000
+Gazprom LLC 300000 100000
+Pyaterochka LLC 100000 150000
+Home_design JLC 20000 18000
