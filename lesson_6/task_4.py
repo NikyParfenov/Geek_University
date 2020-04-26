@@ -11,12 +11,12 @@ from random import choice
 
 class Car:
     car_items = []
+    is_police = False
 
-    def __init__(self, speed: int, color: str, name: str, is_police: bool):
+    def __init__(self, speed: int, color: str, name: str):
         self.speed = speed
         self.color = color
         self.name = name
-        self.is_police = is_police
         Car.car_items.append(self)
 
     def go(self):
@@ -33,35 +33,41 @@ class Car:
 
 
 class TownCar(Car):
-    def __init__(self, speed: int, color: str, name: str, is_police: bool):
-        super().__init__(speed, color, name, is_police)
+    # конструктор можно убрать/заменить на pass, т.к. атрибуты инициализированы в родителе
+    def __init__(self, speed: int, color: str, name: str):
+        super().__init__(speed, color, name)
 
     def show_speed(self, speed):
         print(f'- Текущая скорость автомобился {speed}') if self.speed <= 60 else print('- Превышение скорости!')
 
 
 class SportCar(Car):
-    def __init__(self, speed: int, color: str, name: str, is_police: bool):
-        super().__init__(speed, color, name, is_police)
+    # конструктор можно убрать/заменить на pass, т.к. атрибуты инициализированы в родителе
+    def __init__(self, speed: int, color: str, name: str):
+        super().__init__(speed, color, name)
 
 
 class WorkCar(Car):
-    def __init__(self, speed: int, color: str, name: str, is_police: bool):
-        super().__init__(speed, color, name, is_police)
+    # конструктор можно убрать/заменить на pass, т.к. атрибуты инициализированы в родителе
+    def __init__(self, speed: int, color: str, name: str):
+        super().__init__(speed, color, name)
 
     def show_speed(self, speed):
         print(f'- Текущая скорость автомобился {speed}') if self.speed < 40 else print('- Превышение скорости!')
 
 
 class PoliceCar(Car):
-    def __init__(self, speed: int, color: str, name: str, is_police: bool):
-        super().__init__(speed, color, name, is_police)
+    is_police = True
+
+    # конструктор можно убрать/заменить на pass, т.к. атрибуты инициализированы в родителе
+    def __init__(self, speed: int, color: str, name: str):
+        super().__init__(speed, color, name)
 
 
-ford = SportCar(speed=200, color='red', name='Ford Mustang', is_police=False)
-toyota = PoliceCar(speed=140, color='white', name='Toyota Camry', is_police=True)
-bmw = TownCar(speed=80, color='blue', name='BMW 3 series', is_police=False)
-gazel = WorkCar(speed=35, color='white', name='Gazel', is_police=False)
+ford = SportCar(speed=200, color='red', name='Ford Mustang')
+toyota = PoliceCar(speed=140, color='white', name='Toyota Camry')
+bmw = TownCar(speed=80, color='blue', name='BMW 3 series')
+gazel = WorkCar(speed=35, color='white', name='Gazel')
 
 for sample in Car.car_items:
     print(f'{sample.name}, {sample.color}, {sample.speed} km/h, Police: {sample.is_police}')
