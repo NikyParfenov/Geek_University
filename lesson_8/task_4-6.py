@@ -17,6 +17,11 @@ class Storage:
                    'scanner': [],
                    'xerox': []}
 
+    # добавляем любимый @property, чтобы смотреть на __equipment
+    @property
+    def get_equip(self):
+        return self.__equipment
+
     # добавляем оборудование на склад
     def receive_equipment_to_storage(self, equip_type: str, equip_description: dict):
         # проверяем, нет ли уже этой техники в списке, иначе добавляем
@@ -85,12 +90,12 @@ Storage().deliver_equipment_to_unit('Отдел HR', xerox_1.equip_type, xerox_1
 Storage().deliver_equipment_to_unit('Охрана', printer_1.equip_type, printer_1.__dict__)
 Storage().deliver_equipment_to_unit('Охрана', printer_2.equip_type, printer_2.__dict__)
 Storage().receive_equipment_to_storage(printer_2.equip_type, printer_2.__dict__)
-# print(Storage._Storage__equipment)
+# print(Storage().get_equip)
 
 # вывод списка техники для проверки работы скрипта
-for equipment_type_in_storage in Storage._Storage__equipment.keys():
+for equipment_type_in_storage in Storage().get_equip.keys():
     print(f'ТЕХНИКА КЛАССА {equipment_type_in_storage}:\n')
-    for equipment_list_in_storage in range(len(Storage._Storage__equipment[equipment_type_in_storage])):
-        for key, value in Storage._Storage__equipment[equipment_type_in_storage][equipment_list_in_storage].items():
+    for equipment_list_in_storage in range(len(Storage().get_equip[equipment_type_in_storage])):
+        for key, value in Storage().get_equip[equipment_type_in_storage][equipment_list_in_storage].items():
             print(f'{key}: {value}')
         print('\n')
