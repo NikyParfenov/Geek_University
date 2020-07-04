@@ -98,6 +98,7 @@ SHOW TABLES;
 DESC storehouses_products;
 
 SELECT * FROM storehouses_products ORDER BY CASE WHEN value = 0 THEN 'pass' END, value;
+SELECT * FROM storehouses_products ORDER BY value = 0, value;
 
 -- Задание-4 (Операторы, фильтрация, сортировка и ограничение)
 -- (по желанию) Из таблицы users необходимо извлечь пользователей, родившихся в августе и мае.
@@ -196,6 +197,9 @@ SELECT COUNT(*) as number, DATE_FORMAT(birthday_at, '%a') as weekday FROM users5
 -- для текущего 2020 года (цифровой и буквенный формат дня недели)
 SELECT COUNT(*) as number, DAYOFWEEK(DATE_FORMAT(birthday_at, '2020-%m-%d')) as weekday FROM users5 GROUP BY weekday;
 SELECT COUNT(*) as number, DATE_FORMAT(DATE_FORMAT(birthday_at, '2020-%m-%d'), '%a') as weekday FROM users5 GROUP BY weekday;
+-- без хардкода
+SELECT COUNT(*) as number, DAYOFWEEK(CONCAT(YEAR(NOW()), '-', MONTH(birthday_at), '-', DAY(birthday_at))) as weekday FROM users5 GROUP BY weekday;
+SELECT COUNT(*) as number, DATE_FORMAT(CONCAT(YEAR(NOW()), '-', MONTH(birthday_at), '-', DAY(birthday_at)), '%a') as weekday FROM users5 GROUP BY weekday;
 
 -- Задание-3 (Агрегация данных)
 -- (по желанию) Подсчитайте произведение чисел в столбце таблицы.s
