@@ -8,13 +8,23 @@ VALUES
   (4),
   (4),
   (3); 
- 
+  
+-- решение через вложенный запрос 
  SELECT
   id, name
 FROM
   users
 WHERE
   users.id IN (SELECT user_id FROM orders);
+-- решение через JOIN
+SELECT
+  users.id, users.name
+FROM
+  users JOIN orders
+ON
+  users.id = orders.user_id
+GROUP BY
+  users.id;
   
 -- 2. Выведите список товаров products и разделов catalogs, который соответствует товару.
 USE shop;
@@ -67,9 +77,25 @@ VALUES
   ('kazan', 'Казань'),
   ('omsk', 'Омск');
   
+-- решение через вложенный запрос  
 SELECT
   id,
   (SELECT CASE `from` WHEN cities.label THEN cities.name END FROM cities WHERE `from` = cities.label) as `from`,
   (SELECT CASE `to` WHEN cities.label THEN cities.name END FROM cities WHERE `to` = cities.label) as `to`
 FROM flights;
- 
+
+-- решение через JOIN
+SELECT
+  id,
+  translate_from.name as `from`,
+  translate_to.name as `to`
+FROM
+  flights
+LEFT JOIN
+  cities as translate_from
+ON
+  `from` = translate_from.label
+LEFT JOIN
+  cities as translate_to
+ON
+  `to` = translate_to.label;
