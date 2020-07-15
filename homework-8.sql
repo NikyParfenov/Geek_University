@@ -119,7 +119,7 @@ LEFT JOIN
 ORDER BY activity_summ LIMIT 10;
 
 
--- Пробовал сделать через общий GROUP BY, но результат частично отличается...
+-- Пробовал сделать через общий GROUP BY, но результат частично отличается
 SELECT CONCAT(first_name, ' ', last_name) AS user_name,
 	COALESCE(COUNT(likes.user_id), 0) +
 	COALESCE(COUNT(messages.from_user_id), 0) +
