@@ -118,3 +118,31 @@ LEFT JOIN
   ON users.id = documents_number.user_id
 ORDER BY activity_summ LIMIT 10;
 
+
+-- Пробовал сделать через общий GROUP BY, но результат частично отличается...
+SELECT CONCAT(first_name, ' ', last_name) AS user_name,
+	COALESCE(COUNT(likes.user_id), 0) +
+	COALESCE(COUNT(messages.from_user_id), 0) +
+	COALESCE(COUNT(posts.user_id), 0) +
+	COALESCE(COUNT(communities_users.user_id), 0) +
+	COALESCE(COUNT(friendship.user_id), 0) +
+	COALESCE(COUNT(media.user_id), 0) +
+	COALESCE(COUNT(documents.user_id), 0) AS activity_summ
+	 FROM users
+LEFT JOIN likes
+	   ON users.id = likes.user_id
+LEFT JOIN messages
+	   ON users.id = messages.from_user_id
+LEFT JOIN posts
+	   ON users.id = posts.user_id
+LEFT JOIN communities_users
+	   ON users.id = communities_users.user_id
+LEFT JOIN friendship
+	   ON users.id = friendship.user_id
+LEFT JOIN media
+	   ON users.id = media.user_id
+LEFT JOIN documents
+	   ON users.id = documents.user_id
+ GROUP BY users.id
+ ORDER BY activity_summ 
+	LIMIT 10;
