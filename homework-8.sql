@@ -121,13 +121,13 @@ ORDER BY activity_summ LIMIT 10;
 
 -- Пробовал сделать через общий GROUP BY, но результат частично отличается
 SELECT CONCAT(first_name, ' ', last_name) AS user_name,
-	COALESCE(COUNT(likes.user_id), 0) +
-	COALESCE(COUNT(messages.from_user_id), 0) +
-	COALESCE(COUNT(posts.user_id), 0) +
+	COALESCE(COUNT(likes.id), 0) +
+	COALESCE(COUNT(messages.id), 0) +
+	COALESCE(COUNT(posts.id), 0) +
 	COALESCE(COUNT(communities_users.user_id), 0) +
 	COALESCE(COUNT(friendship.user_id), 0) +
-	COALESCE(COUNT(media.user_id), 0) +
-	COALESCE(COUNT(documents.user_id), 0) AS activity_summ
+	COALESCE(COUNT(media.id), 0) +
+	COALESCE(COUNT(documents.id), 0) AS activity_summ
 	 FROM users
 LEFT JOIN likes
 	   ON users.id = likes.user_id
