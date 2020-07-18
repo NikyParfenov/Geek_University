@@ -16,7 +16,13 @@ INSERT INTO sample.users
 	   FROM shop.users 
 	  WHERE id = 1;
 
+DELETE FROM shop.users WHERE id = 1;
+
 COMMIT;
+
+-- для "лечения" shop.users с id=1
+-- USE shop;
+-- INSERT INTO users (id, name, birthday_at) VALUES (1, 'Геннадий', '1990-10-05');
 
 -- 2. Создайте представление, которое выводит название name товарной позиции из таблицы products 
 -- и соответствующее название каталога name из таблицы catalogs.
