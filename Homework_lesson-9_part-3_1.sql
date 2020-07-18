@@ -22,7 +22,7 @@ BEGIN
 		THEN RETURN 'Добрый день';
 			
 		WHEN CURRENT_TIME() >= TIME_FORMAT('18:00:00', '%H:%i:%S')
-		  AND CURRENT_TIME() < TIME_FORMAT('00:00:00', '%H:%i:%S')
+		  AND CURRENT_TIME() < TIME_FORMAT('24:00:00', '%H:%i:%S')
 		THEN RETURN 'Добрый вечер';
 			
 		WHEN CURRENT_TIME() >= TIME_FORMAT('00:00:00', '%H:%i:%S')
