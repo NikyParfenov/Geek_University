@@ -91,6 +91,7 @@ CREATE INDEX users_created_at_idx ON users(created_at);
 -- чтобы существенно повысить скорость работы этого запроса?			--
 -- -------------------------------------------------------------------- --
 
+-- можно объединить likes с users, а также добавить число сообщений к таблице users						      
    SELECT users.id,
 	  	  COUNT(DISTINCT messages.id) +	
 	 	  COUNT(DISTINCT likes.id) +					
