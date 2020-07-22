@@ -43,7 +43,7 @@ CREATE INDEX users_created_at_idx ON users(created_at);
 
  SELECT DISTINCT communities.name AS Group_Name,
 	   -- среднее число пользователей в группах
-	   FLOOR(AVG(tbl1.Sum_in_Group) OVER()) AS Avg_Users,
+	   ROUND(AVG(tbl1.Sum_in_Group) OVER(), 0) AS Avg_Users,
 	   -- самый молодой пользователь
 	   Youngest_User,
 	   -- самый старший пользователь
