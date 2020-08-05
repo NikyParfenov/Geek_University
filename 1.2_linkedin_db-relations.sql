@@ -42,11 +42,11 @@ ALTER TABLE skills_endorsements
      FOREIGN KEY (endorsed_user_id) REFERENCES users(id);
 
 -- Set relations:
--- 'content.owner_id' - 'users.id'
+-- 'content.user_id' - 'users.id'
 -- 'content.content_type_id' - 'content_types.id'
 ALTER TABLE content 
-  ADD CONSTRAINT content_owner_id_fk
-     FOREIGN KEY (owner_id) REFERENCES users(id),
+  ADD CONSTRAINT content_user_id_fk
+     FOREIGN KEY (user_id) REFERENCES users(id),
   ADD CONSTRAINT content_content_type_id_fk
      FOREIGN KEY (content_type_id) REFERENCES content_types(id);
  
@@ -100,12 +100,12 @@ ALTER TABLE posts
 
 -- Set relations:
 -- 'likes.user_id' - 'users.id'    
--- 'likes.target_id' - 'posts.id'
+-- 'likes.post_id' - 'posts.id'
 ALTER TABLE likes 
   ADD CONSTRAINT likes_user_id_fk
      FOREIGN KEY (user_id) REFERENCES users(id),
-  ADD CONSTRAINT likes_target_id_fk
-     FOREIGN KEY (target_id) REFERENCES posts(id);
+  ADD CONSTRAINT likes_post_id_fk
+     FOREIGN KEY (post_id) REFERENCES posts(id);
     
 -- Set relations:
 -- 'communities_users.community_id' - 'communities.id'

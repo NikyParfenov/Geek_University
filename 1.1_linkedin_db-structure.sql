@@ -28,14 +28,14 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS phone_types;
 CREATE TABLE phone_types (
   id         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "Line id",
-  name       VARCHAR(10) NOT NULL UNIQUE                      COMMENT "Phone type name"
+  name       ENUM('home', 'work', 'mobile') NOT NULL UNIQUE   COMMENT "Phone type name"
 ) COMMENT "Phone types";
 
 -- 3. Table of users profiles with additional information (separation for users table optimisation)
 DROP TABLE IF EXISTS profiles;
 CREATE TABLE profiles (
   user_id             INT UNSIGNED NOT NULL PRIMARY KEY  COMMENT "Lind to users id", 
-  gender              CHAR(1) NOT NULL                   COMMENT "User's gender",
+  gender              ENUM('m', 'f') NOT NULL            COMMENT "User's gender",
   birthday            DATE                               COMMENT "User's birthday",
   birthday_private_id INT UNSIGNED                       COMMENT "Link to birthday private table",
   photo_id            INT UNSIGNED                       COMMENT "Link to photo id content",
@@ -57,7 +57,10 @@ CREATE TABLE profiles (
 DROP TABLE IF EXISTS birthday_private;
 CREATE TABLE birthday_private (
   id         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "Line id",
-  name       VARCHAR(30) NOT NULL UNIQUE                      COMMENT "birthday private"
+  name       ENUM('only you',
+                  'your connections',
+                  'your network',
+                  'all linkedin members') NOT NULL UNIQUE     COMMENT "birthday private"
 ) COMMENT "Birthday private";
 
 -- 5. Table of users work experience
@@ -77,11 +80,17 @@ CREATE TABLE work_experience (
                             ON UPDATE CURRENT_TIMESTAMP               COMMENT "Line update time" 
 ) COMMENT "Work experience"; 
  
--- 6. Table of employment types: Full-time, Part-time, Self-employed, Freelance, Contract, Internship, Apprenticeship
+-- 6. Table of employment types: full-time, part-time, self-employed, freelance, contract, internship, apprenticeship
 DROP TABLE IF EXISTS employment_types;
 CREATE TABLE employment_types (
   id   INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "Line id", 
-  name VARCHAR(20) NOT NULL                             COMMENT "Titles of employment types"
+  name ENUM('full-time',
+            'part-time',
+            'self-employed',
+            'freelance',
+            'contract',
+            'internship',
+            'apprenticeship') NOT NULL                  COMMENT "Titles of employment types"
 ) COMMENT "Employment types"; 
 
 -- 7. Table of users education
@@ -127,7 +136,7 @@ CREATE TABLE skills_endorsements (
 DROP TABLE IF EXISTS content;
 CREATE TABLE content (
   id               INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "Line id",
-  owner_id         INT UNSIGNED NOT NULL                            COMMENT "Link to owner of the file",
+  user_id          INT UNSIGNED NOT NULL                            COMMENT "Link to owner of the file",
   filename         VARCHAR(255) NOT NULL                            COMMENT "URL-adress to the file",
   file_size        INT NOT NULL                                     COMMENT "File size",
   metadata         JSON                                             COMMENT "File metadata",
@@ -141,7 +150,10 @@ CREATE TABLE content (
 DROP TABLE IF EXISTS content_types;
 CREATE TABLE content_types (
   id         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "Line id",
-  name       VARCHAR(255) NOT NULL UNIQUE                     COMMENT "Content type name",
+  name       ENUM('photo',
+                  'video',
+                  'document',
+                  'article') NOT NULL UNIQUE                  COMMENT "Content type name",
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP               COMMENT "Line creation time", 
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
                     ON UPDATE CURRENT_TIMESTAMP               COMMENT "Line update time"
@@ -213,7 +225,7 @@ DROP TABLE IF EXISTS likes;
 CREATE TABLE likes (
   id         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "Line id",
   user_id    INT UNSIGNED NOT NULL                            COMMENT "User, who likes post",
-  target_id  INT UNSIGNED NOT NULL                            COMMENT "Link to posts",
+  post_id  INT UNSIGNED NOT NULL                            COMMENT "Link to posts",
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP               COMMENT "Line creation time"
 ) COMMENT "Table of likes";
 
